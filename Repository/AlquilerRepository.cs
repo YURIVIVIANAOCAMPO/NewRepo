@@ -19,5 +19,13 @@ namespace AlquilerVehiculos.Repository
                 .Include(m=>m.IdCarroNavigation)
                 .ToList();
         }
+        public ICollection<Alquiler> GetAllXDate(DateTime FechaInicio, DateTime FechaFin)
+        {
+            return _context.Alquilers
+                 .Include(m => m.IdClienteNavigation)
+                 .Include(m => m.IdCarroNavigation)
+                 .Where(x=>x.Fecha>=FechaInicio &&x.Fecha<=FechaFin)
+                 .ToList();
+        }
     }
 }

@@ -3,70 +3,56 @@
 @{
     ViewData["Title"] = "Index";
 }
-<table id="tableFlows" class="display nowrap w-100">
-    <thead>
-        <tr>
-            <th>
-                <label>Cedula </label>
-            </th>
-            <th>
-                <label>Nombre  </label>
-            </th> 
-            <th>
-                <label>Fecha Alquiler </label>
-            </th>
-            <th>
-                <label>Tiempo Alquiler  </label>
-            </th>
-            <th>
-                <label>Alquilado </label>
-            </th>
-            <th>
-                <label>Saldo </label>
-            </th>
-            <th>
-                <label>Placa </label>
-            </th>
-            <th>
-                <label>Marca </label>
-            </th>
 
+<div class="row">
+    <div class="col-md-8">
+        <h1 class="header-title">Entregas</h1>
+    </div>
+    <div class="col-md-4" style="text-align : right;">
+        <form id="frmFiltro" asp-action="FilterAlquiler" onsubmit="return jQueryAjaxFiltro(this);" autocomplete="off">
+            <label for="fechaInicio">Fecha de inicio:</label>
+            <input type="date" id="fechaInicio" name="fechaInicio">
 
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Cedula)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Nombre)
-                </td>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.Tiempo)
-                </td>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.Devuelto)
-                </td>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.Saldo)
-                </td>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.IdCarroNavigation.Placa)
+            <label for="fechaFin">Fecha de fin:</label>
+            <input type="date" id="fechaFin" name="fechaFin">
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdCarroNavigation.Marca)
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <div id="divAll">
+        @Html.Partial("_PartialIndex", Model)
+    </div>
+</div>
 
-                </td>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script>
+    jQueryAjaxFiltro = form => {
+        try {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    $("#divAll").html(res.html);
+                    alert(res.message);
 
-            </tr>
+                    // $('#tableOdln').DataTable({
+                    //     language: {
+                    //         url: 'https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json'
+                    //     },
+                    //     "order": [[4, "asc"]],
+                    //     responsive: true
+                    // });
+
+                }
+            })
         }
-    </tbody>
-</table>
+        catch (e) {
+            console.log(e);
+        }
+        //Prevent default submit action
+        return false;
+    }
+</script>

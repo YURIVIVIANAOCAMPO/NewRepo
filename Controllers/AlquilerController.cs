@@ -1,4 +1,5 @@
-﻿using AlquilerVehiculos.Repository.IRepository;
+﻿using AlquilerVehiculos.Models;
+using AlquilerVehiculos.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlquilerVehiculos.Controllers
@@ -13,6 +14,18 @@ namespace AlquilerVehiculos.Controllers
         public IActionResult Index()
         {
             return View(_AlquilerRepo.GetAll());
+        }
+
+        public JsonResult FilterAlquiler(DateTime FechaInicio,DateTime FechaFin)
+        {
+            List<Alquiler> odln = _AlquilerRepo.GetAllXDate(FechaInicio, FechaFin).ToList();
+            return Json(new
+            {
+                isSuccess = true,
+                html = Helper.RenderRazorViewToString(this, "_PartialIndex", odln),
+                message = "Filtro Ejecutado"
+            });
+
         }
     }
 }
