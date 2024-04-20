@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Alquiler>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<table id="tableFlows" class="display nowrap w-100">
+    <thead>
+        <tr>
+            <th>
+                <label>Cedula </label>
+            </th>
+            <th>
+                <label>Nombre  </label>
+            </th> 
+            <th>
+                <label>Fecha Alquiler </label>
+            </th>
+            <th>
+                <label>Tiempo Alquiler  </label>
+            </th>
+            <th>
+                <label>Alquilado </label>
+            </th>
+            <th>
+                <label>Saldo </label>
+            </th>
+            <th>
+                <label>Placa </label>
+            </th>
+            <th>
+                <label>Marca </label>
+            </th>
+
+
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Cedula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Nombre)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Tiempo)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Devuelto)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Saldo)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.IdCarroNavigation.Placa)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCarroNavigation.Marca)
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

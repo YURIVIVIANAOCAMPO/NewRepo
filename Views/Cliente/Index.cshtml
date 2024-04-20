@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<table id="tableFlows" class="display nowrap w-100">
+    <thead>
+        <tr>
+            <th>
+                <label>Nombre </label>
+            </th>
+            
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
+
